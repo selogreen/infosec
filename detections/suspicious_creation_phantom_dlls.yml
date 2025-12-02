@@ -1,0 +1,192 @@
+title: Suspicious Creation Of Phantom DLLs (Hexacorn List)
+id: bbe4334b-5f43-452a-b3d0-98ac76baa962
+status: experimental
+description: |
+  Hexacorn's phantomdlls list detection. Presence of files may indicate dll sideloading or other bad shenanigans.
+  AI was used in the creation of this rule. User discretion is advised.
+author: selogreen
+date: 2025/12/02
+references:
+  - https://www.hexacorn.com/blog/2025/11/29/more-hidden-phantom-dlls/
+  - https://hexacorn.com/d/phantomdlls.txt
+tags:
+  - attack.defense_evasion
+  - attack.t1574.002
+  - attack.t1574.001
+logsource:
+  product: windows
+  category: file_event
+
+detection:
+  sysmon_file_create:
+    EventID: 11
+    TargetFilename|endswith:
+      - '\PreinstalledVolumeServicing.dll'
+      - '\UdiApi.dll'
+      - '\debugregsvcapi.dll'
+      - '\DXCaptureReplay.dll'
+      - '\debugregsvcapi.dll'
+      - '\phoneinfo.dll'
+      - '\ShellChromeAPI.dll'
+      - '\wpaxholder.dll'
+      - '\ChamberProf.Dll'
+      - '\DeploymentExt.dll'
+      - '\WPTrust.dll'
+      - '\PreAuthz.dll'
+      - '\EmClient.dll'
+      - '\EmSvcs.dll'
+      - '\EnterprisePhoneExt.dll'
+      - '\btscli.dll'
+      - '\wpcoreutil.dll'
+      - '\FveEnableUnlock.dll'
+      - '\wlbsctrl.dll'
+      - '\FakeCWClient.dll'
+      - '\UT_FakeCWClient.dll'
+      - '\OLMAPI32.dll'
+      - '\wpeutil.dll'
+      - '\SetupPlatform.dll'
+      - '\fbwflib.dll'
+      - '\WpSensorsNativeApi.V1.dll'
+      - '\ShellChromeAPI.dll'
+      - '\SettingsEnvironment.dll'
+      - '\debugregsvcapi.dll'
+      - '\debugregsvcapi.dll'
+      - '\ReserveManager.dll'
+      - '\EmSvcs.dll'
+      - '\cdpsgshims.dll'
+      - '\cdpsgshims.dll'
+      - '\certadm.dll'
+      - '\CEUTIL.DLL'
+      - '\ConhostV1.dll'
+      - '\DXCaptureReplay.dll'
+      - '\d3d10d.dll'
+      - '\DXCaptureReplay.dll'
+      - '\DXCaptureReplay.dll'
+      - '\D3D10_1d.dll'
+      - '\DXCaptureReplay.dll'
+      - '\D3D9on12ShaderValidator.dll'
+      - '\minuser.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\wpcoreutil.dll'
+      - '\SecRuntime.dll'
+      - '\phoneinfo.dll'
+      - '\DXCaptureReplay.dll'
+      - '\centel.dll'
+      - '\jsIntl.dll'
+      - '\jsIntl.dll'
+      - '\phoneinfo.dll'
+      - '\healthapi.dll'
+      - '\ipbootp.dll'
+      - '\ISMIF32.DLL'
+      - '\XboxNetApiSvcExtHost.dll'
+      - '\olecnv32.dll'
+      - '\PrintCoreConfig.dll'
+      - '\RpcShim.dll'
+      - '\ualapi.dll'
+      - '\ualapi.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\upnphost.dll.mui'
+      - '\LegacyUserManager.dll'
+      - '\phoneinfo.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\offdmpsvc.dll'
+      - '\wininetxblext.dll'
+      - '\axeonoffhelper.dll'
+      - '\healthapi.dll'
+      - '\healthapi.dll'
+
+  security_file_create:
+    EventID: 4663
+    Accesses|contains: 'WriteData'
+    ObjectType: 'File'
+    ObjectName|endswith:
+      - '\PreinstalledVolumeServicing.dll'
+      - '\UdiApi.dll'
+      - '\debugregsvcapi.dll'
+      - '\DXCaptureReplay.dll'
+      - '\debugregsvcapi.dll'
+      - '\phoneinfo.dll'
+      - '\ShellChromeAPI.dll'
+      - '\wpaxholder.dll'
+      - '\ChamberProf.Dll'
+      - '\DeploymentExt.dll'
+      - '\WPTrust.dll'
+      - '\PreAuthz.dll'
+      - '\EmClient.dll'
+      - '\EmSvcs.dll'
+      - '\EnterprisePhoneExt.dll'
+      - '\btscli.dll'
+      - '\wpcoreutil.dll'
+      - '\FveEnableUnlock.dll'
+      - '\wlbsctrl.dll'
+      - '\FakeCWClient.dll'
+      - '\UT_FakeCWClient.dll'
+      - '\OLMAPI32.dll'
+      - '\wpeutil.dll'
+      - '\SetupPlatform.dll'
+      - '\fbwflib.dll'
+      - '\WpSensorsNativeApi.V1.dll'
+      - '\ShellChromeAPI.dll'
+      - '\SettingsEnvironment.dll'
+      - '\debugregsvcapi.dll'
+      - '\debugregsvcapi.dll'
+      - '\ReserveManager.dll'
+      - '\EmSvcs.dll'
+      - '\cdpsgshims.dll'
+      - '\cdpsgshims.dll'
+      - '\certadm.dll'
+      - '\CEUTIL.DLL'
+      - '\ConhostV1.dll'
+      - '\DXCaptureReplay.dll'
+      - '\d3d10d.dll'
+      - '\DXCaptureReplay.dll'
+      - '\DXCaptureReplay.dll'
+      - '\D3D10_1d.dll'
+      - '\DXCaptureReplay.dll'
+      - '\D3D9on12ShaderValidator.dll'
+      - '\minuser.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\wpcoreutil.dll'
+      - '\SecRuntime.dll'
+      - '\phoneinfo.dll'
+      - '\DXCaptureReplay.dll'
+      - '\centel.dll'
+      - '\jsIntl.dll'
+      - '\jsIntl.dll'
+      - '\phoneinfo.dll'
+      - '\healthapi.dll'
+      - '\ipbootp.dll'
+      - '\ISMIF32.DLL'
+      - '\XboxNetApiSvcExtHost.dll'
+      - '\olecnv32.dll'
+      - '\PrintCoreConfig.dll'
+      - '\RpcShim.dll'
+      - '\ualapi.dll'
+      - '\ualapi.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\upnphost.dll.mui'
+      - '\LegacyUserManager.dll'
+      - '\phoneinfo.dll'
+      - '\XboxLiveTitleId.dll'
+      - '\offdmpsvc.dll'
+      - '\wininetxblext.dll'
+      - '\axeonoffhelper.dll'
+      - '\healthapi.dll'
+      - '\healthapi.dll'
+
+  condition: sysmon_file_create or security_file_create
+
+fields:
+  - Image
+  - ProcessGuid
+  - ProcessId
+  - User
+  - TargetFilename
+  - ObjectName
+  - CommandLine
+
+level: high
+falsepositives:
+  - Probable, rule is Untested.
